@@ -1,5 +1,5 @@
 import React from 'react'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom'
 import Axios from 'axios'
 
@@ -16,12 +16,15 @@ export default function SignInPage() {
         username: username,
         password: password,
         }).then((response) => {
-
+            console.log(response)
         if (response.data.message) { // failed authentication
             console.log("failed authentication");
+            document.getElementById("loginStatus").innerHTML = "Invalid Credentials";
         } else { // successful authentication
+            document.getElementById("loginStatus").innerHTML = "";
             window.location.replace("http://localhost:3000/home");
             console.log(" localhost:3000/home " + window.location.href);
+
         }
         })
 
@@ -51,7 +54,9 @@ export default function SignInPage() {
             </p>
             <p>
                 <button id="sub_btn" type="submit" onClick = {login}>Login</button>
+                
             </p>
+            <label id="loginStatus"></label>
         </form>
 
         <footer>

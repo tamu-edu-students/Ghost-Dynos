@@ -20,12 +20,13 @@ export default function LandingPage() {
     document.getElementById("signInDiv").hidden = false;
   }
 
-  // prompt again
+  /* prompt again
   function handleSignOut(event) {
     setUser({});
     document.getElementById("signInDiv").hidden = false;
     google.accounts.id.prompt()
   }
+  */
 
   useEffect(() => {
     /* global google */

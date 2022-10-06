@@ -2,7 +2,8 @@
 const express = require("express");
 const Pool = (require("pg")).Pool
 const cors = require("cors");
-const { dblClick } = require("@testing-library/user-event/dist/click");
+require('dotenv').config()
+
 
 const app = express();
 const port = 3001;
@@ -15,6 +16,10 @@ app.listen(port, () => {
   console.log("running server")
 })
 
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true,
+  });
 
 // Function to register the user
 app.post('/register', (req, res) => {
@@ -52,10 +57,11 @@ app.post('/login', (req, res) => {
         }
     )
 })
-const pool = new Pool({
-    user: 'postgres',
+ /* const pool = new Pool({
+    user: 'my_user',
     host: 'localhost',
     database: 'login',
-    password: 'chandamama',
+    password: 'root',
     port: 5432,
-});
+}); */
+
