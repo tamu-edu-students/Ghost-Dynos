@@ -15,11 +15,18 @@ app.use(cors());
 app.listen(port, () => {
   console.log("running server")
 })
-
+const pool = new Pool({
+    user: 'my_user',
+    host: 'localhost',
+    database: 'login',
+    password: 'root',
+    port: 5432,
+});
+/*
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
     ssl: true,
-  });
+  }); */
 
 // Function to register the user
 app.post('/register', (req, res) => {
@@ -57,11 +64,5 @@ app.post('/login', (req, res) => {
         }
     )
 })
- /* const pool = new Pool({
-    user: 'my_user',
-    host: 'localhost',
-    database: 'login',
-    password: 'root',
-    port: 5432,
-}); */
+
 

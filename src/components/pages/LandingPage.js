@@ -40,7 +40,6 @@ export default function LandingPage() {
       { theme:"outline", size: "large" }
     )
 
-    google.accounts.id.prompt()
   }, []);
 
   
