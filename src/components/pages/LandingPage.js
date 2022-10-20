@@ -30,7 +30,7 @@ export default function LandingPage() {
 
   useEffect(() => {
     /* global google */
-    google.accounts.id.initialize({
+    /*google.accounts.id.initialize({
       client_id: "787802789658-som6i2h91g2t708bhkg5m3aen4tb1rpa.apps.googleusercontent.com",
       callback: handleCallbackResponse
     })
@@ -39,9 +39,8 @@ export default function LandingPage() {
       document.getElementById("signInDiv"),
       { theme:"outline", size: "large" }
     )
-
-  }, []);
-
+*/
+  },  []);
   
   return (
         <div className="App">

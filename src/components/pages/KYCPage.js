@@ -13,7 +13,7 @@ export default function KYCPage() {
                     <input type="file" id="myFile" name="filename"/>
                 </p>
                 <p>
-                    <input type="submit"/>
+                    <input type="text"/>
                 </p>
             </form>
         </div>
