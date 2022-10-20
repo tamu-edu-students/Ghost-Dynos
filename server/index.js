@@ -12,7 +12,7 @@ app.use(express.json());
 app.use(cors());
 
 // Prints when running server
-app.listen(port, () => {
+app.listen(process.env.PORT | PORT, () => {
   console.log("running server")
 })
 const pool = new Pool({

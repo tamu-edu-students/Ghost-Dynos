@@ -7,6 +7,7 @@
 /server/node_modules
 process.env
 
+
 # testing
 /coverage
 
@@ -19,6 +20,7 @@ process.env
 .env.development.local
 .env.test.local
 .env.production.local
+.env
 
 npm-debug.log*
 yarn-debug.log*
