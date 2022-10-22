@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
 app.use(cors());
-app.use(express.static(path.join(__dirname, "client/build")))
+// app.use(express.static(path.join(__dirname, "client/build")))
 
 if (process.env.NODE_ENV === "production") {
     //serve static content
@@ -31,21 +31,17 @@ app.listen(process.env.PORT | PORT, () => {
     port: 5432,
 }); */
 
-const devConfig = {
-    user: process.env.PG_USER,
-    password: process.env.PG_PASSWORD,
-    host: process.env.PG_HOST,
-    database: process.env.PG_DATABASE,
-    port: process.env.PG_PORT
-};
+const devConfig = `postgresql://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`;
 
-const proConfig = {
-    connectionString: process.env.DATABASE_URL //heroku addons
-}
-const pool = new Pool(
-    process.env.NODE_ENV === "production" ? proConfig : devConfig
-)
+const proConfig = process.env.DATABASE_URL //heroku addons
+const pool = new Pool({
+    connectionString: process.env.NODE_ENV === "production" ? proConfig : devConfig,
 
+    // comment out when in localhost
+    ssl: {
+        rejectUnauthorized: false
+      } 
+})
 // Function to register the user
 app.post('/register', (req, res) => {
 
@@ -55,7 +51,8 @@ app.post('/register', (req, res) => {
     pool.query("INSERT INTO info (username, email, password) VALUES ($1, $2, $3)",
     [username, email, password],
     (err, result) => {
-        console.log(err);
+        console.log(`error is ${err}`)
+        console.log(`result is ${result}`)
       }
     );
 })
@@ -64,11 +61,16 @@ app.post('/register', (req, res) => {
 app.post('/login', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-
+    console.log(`username is ${username}`)
+    console.log(`password is ${password}`)
+    
     pool.query(
+        
         "SELECT * FROM info WHERE username = $1 AND password = $2",
         [username, password],
         (err, result) => {
+            console.log(`error is ${err}`)
+            console.log(`result is ${result}`)
             if (err) {
                 res.send({err: err}); //if error, next wont run
             }
@@ -83,6 +85,22 @@ app.post('/login', (req, res) => {
     )
 })
 
+app.post('/kycform', (req, res) => {
+
+    const firstname = req.body.firstname
+    const lastname = req.body.lastname
+    const driverid = req.body.driverid
+    const state = req.body.state
+    const zip = req.body.zip 
+    const birthdate = req.body.birthdate
+    pool.query("INSERT INTO kycform (firstname, lastname, driverid, state, zip, birthdate) VALUES ($1, $2, $3, $4, $5, $6)",
+    [firstname, lastname, driverid, state, zip, birthdate],
+    (err, result) => {
+        console.log(`error is ${err}`)
+        console.log(`result is ${result}`)
+      }
+    );
+})
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client/build/index.html"))
 })
