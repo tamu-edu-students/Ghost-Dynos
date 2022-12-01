@@ -8,6 +8,7 @@ import RegisterPage from './components/pages/RegisterPage'
 import ForgetPasswordPage from './components/pages/ForgetPasswordPage'
 import HomePage from './components/pages/HomePage'
 import KYCPage from './components/pages/KYCPage'
+import PaymentPage from './components/pages/PaymentPage'
 
 import './App.css'
 import { appendFile } from 'fs'
@@ -23,6 +24,7 @@ export default function App() {
                     <Route path="/forget-password" component={ ForgetPasswordPage } />
                     <Route path="/home" component={ HomePage } />
                     <Route path="/kyc" component={ KYCPage } />
+                    <Route path="/payment" component={ PaymentPage } />
                 </Switch>
             </div>
         </Router>

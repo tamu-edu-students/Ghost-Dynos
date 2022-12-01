@@ -9,6 +9,10 @@ export default function HomePage() {
                 <button className="primary-button">KYC Details</button>
             </Link>
 
+            <Link to="/payment">
+                <button className="primary-button">Pay</button>
+            </Link>
+
             <Link to="/">
                 <button className="primary-button">Log out</button>
             </Link>
